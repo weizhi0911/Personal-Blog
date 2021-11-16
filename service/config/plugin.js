@@ -21,3 +21,16 @@ exports.cors = {
   enable: true,
   package: 'egg-cors',
 };
+
+
+// GitHub 登录
+
+exports.passport = {
+  enable: true,
+  package: 'egg-passport',
+};
+
+exports.passportGithub = {
+  enable: true,
+  package: 'egg-passport-github',
+};

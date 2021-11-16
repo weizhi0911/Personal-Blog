@@ -48,7 +48,15 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1583158050037_9034';
 
   // add your middleware config here
-  config.middleware = [ 'adminauth' ];
+  config.middleawre = ['adminauth'];
+  
+  // github 登录配置
+  config.passportGithub = {
+    key: '475d5903e217f53488cc',
+    secret: '4153e1dc7537442cb3ea6e97429ce191f026d20c',
+    callbackURL: 'http://localhost:3000/index/add',
+    proxy: false,
+  };
 
   // add your user config here
   const userConfig = {

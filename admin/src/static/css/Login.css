@@ -1,7 +1,14 @@
-.login-div{
-    margin: 150px auto;
-    width: 400px;
+.login-div {
+  margin: 150px auto;
+  width: 400px;
 }
-body{
-    background-color: #f0f0f0;
+body {
+  background-color: #f0f0f0;
+}
+.other-login {
+  display: flex;
+  justify-content: space-between;
+}
+.login-icon > span {
+  margin-left: 5px;
 }

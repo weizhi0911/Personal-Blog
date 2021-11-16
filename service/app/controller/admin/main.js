@@ -13,6 +13,7 @@ class HomeController extends Controller {
       userName + "' AND passWord = '" +
       passWord + "'";
     const res = await this.app.mysql.query(sql);
+    console.log('getTypeInfo');
     if (res.length > 0) { // 查询返回的长度大于0，登录成功
       const openId = new Date().getTime();
       this.ctx.session = { openId };
@@ -23,8 +24,6 @@ class HomeController extends Controller {
   }
 
   async getTypeInfo() { // 获取文章类别信息
-    console.log('getTypeInfo')
-    console.log(this.ctx.session)
     const resType = await this.app.mysql.select('type');// 类型
     this.ctx.body = { data: resType };
   }
