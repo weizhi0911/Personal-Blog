@@ -1,5 +1,5 @@
 /*接口文件*/
-let ipUrl = 'http://127.0.0.1:7001/default/';//ip地址
+let ipUrl = 'http://127.0.0.1:7002/default/';//ip地址
 
 let servicePath = {//后台接口
     getArticleList: ipUrl + 'getArticleList', // 主页查询

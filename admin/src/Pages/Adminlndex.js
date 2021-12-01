@@ -1,49 +1,54 @@
-import React, { useState,useEffect } from 'react';
-import { Layout, Menu, Breadcrumb,message } from 'antd';
+import React, { useState, useEffect } from 'react'
+import { Layout, Menu, Breadcrumb, message, Button } from 'antd'
 import {
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
   TeamOutlined,
   UserOutlined,
-} from '@ant-design/icons';
-import '../static/css/Aminlndex.css';
-import { Route } from 'react-router-dom';
-import AddArticle from './AddArticle';
+  SmileTwoTone
+} from '@ant-design/icons'
+import '../static/css/Aminlndex.css'
+import { Route } from 'react-router-dom'
+import AddArticle from './AddArticle'
 import ArticleList from './ArticleList'
+import Toys from './Toys'
 
-const { Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const { Content, Footer, Sider } = Layout
+const { SubMenu } = Menu
 
 function Adminlndex(props) {
-
   const [collapsed, setCollapsed] = useState(false)
-  useEffect(()=>{
+  useEffect(() => {
     goRouter()
-  },[])
+  }, [])
 
-  const goRouter=()=>{
+  const goRouter = () => {
     // let history = useHistory();
-    if(!localStorage.getItem('openId')){
-        message.error('请先登录')
-        props.history.push('/')
-    }else{
-   
-    }
-}
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed)
-  };
-
-  const handleClickArticle = e => {
-    if (e.key === "addArticle") {
-      props.history.push('/index/add')
+    if (!localStorage.getItem('openId')) {
+      message.error('请先登录')
+      props.history.push('/login')
     } else {
-      props.history.push('/index/list')
-
     }
   }
+  const loginout = () => {
+    localStorage.removeItem('openId')
+    props.history.push('/login')
+  }
+  const onCollapse = collapsed => {
+    setCollapsed(collapsed)
+  }
 
+  const handleClickArticle = e => {
+    console.log(e)
+    props.history.push(e.key)
+
+    // if (e.key === 'addArticle') {
+    //   props.history.push('/index/add')
+    // } else {
+    //   props.history.push('/index/list')
+    // }
+  }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -68,8 +73,8 @@ function Adminlndex(props) {
               </span>
             }
           >
-            <Menu.Item key="addArticle">添加文章</Menu.Item>
-            <Menu.Item key="articlelist">文章列表</Menu.Item>
+            <Menu.Item key="/admin/add">添加文章</Menu.Item>
+            <Menu.Item key="/admin/list">文章列表</Menu.Item>
           </SubMenu>
           <SubMenu
             key="sub2"
@@ -83,33 +88,49 @@ function Adminlndex(props) {
             <Menu.Item key="5">Team 1</Menu.Item>
             <Menu.Item key="6">Team 2</Menu.Item>
           </SubMenu>
+
           <Menu.Item key="7">
             <FileOutlined />
-              留言管理
-            </Menu.Item>
+            留言管理
+          </Menu.Item>
+
+          <Menu.Item key="/admin/toys" onClick={handleClickArticle}>
+            <SmileTwoTone />
+            我的玩具
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
         {/* <Header className="site-layout-background" style={{ padding: 0 }} /> */}
         <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>后台管理系统</Breadcrumb.Item>
-            <Breadcrumb.Item>工作台</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+          <div class="header-content">
+            <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>后台管理系统</Breadcrumb.Item>
+              <Breadcrumb.Item>工作台</Breadcrumb.Item>
+            </Breadcrumb>
+            <div class="loginout">
+              <Button type="primary" onClick={loginout}>
+                退出登录
+              </Button>
+            </div>
+          </div>
+
+          <div
+            className="site-layout-background"
+            style={{ padding: 24, minHeight: 360 }}
+          >
             <div>
-              <Route path="/index/" exact component={AddArticle} />
-              <Route path="/index/add/" exact component={AddArticle} />
-              <Route path="/index/list/" exact component={ArticleList} />
-              <Route path="/index/add/:id" exact component={AddArticle} />
-
-
+              <Route path="/" exact component={AddArticle} />
+              <Route path="/admin/add/" exact component={AddArticle} />
+              <Route path="/admin/list/" exact component={ArticleList} />
+              <Route path="/admin/add/:id" exact component={AddArticle} />
+              <Route path="/admin/toys" exact component={Toys} />
             </div>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>JSFeng.com</Footer>
       </Layout>
     </Layout>
-  );
+  )
 }
-export default Adminlndex;
+export default Adminlndex

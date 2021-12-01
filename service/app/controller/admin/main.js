@@ -17,6 +17,7 @@ class HomeController extends Controller {
     if (res.length > 0) { // 查询返回的长度大于0，登录成功
       const openId = new Date().getTime();
       this.ctx.session = { openId };
+      console.log(this.ctx.session);
       this.ctx.body = { data: '登录成功', openId };
     } else {
       this.ctx.body = { data: '登录失败' };

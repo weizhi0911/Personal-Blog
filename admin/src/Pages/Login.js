@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import 'antd/dist/antd.css'
 import { Card, Input, Button, Spin, message } from 'antd'
 import '../static/css/Login.css'
@@ -17,6 +18,7 @@ function Login(props) {
   const [userName, setUseName] = useState('')
   const [passWord, setPassWord] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  let history = useHistory()
   const checkLogin = () => {
     setIsLoading(true)
     if (!userName) {
@@ -42,7 +44,8 @@ function Login(props) {
         setIsLoading(false)
         if (res.data.data === '登录成功') {
           localStorage.setItem('openId', res.data.openId)
-          props.history.push('/index')
+          // props.history.push('/index')
+          history.push('/admin/toys')
         } else {
           message.error('用户名密码错误')
         }
@@ -57,25 +60,23 @@ function Login(props) {
   }
 
   const githubInfo = () => {
-    // alert(localStorage.getItem('openId'))
-    if (localStorage.getItem('openId')) {
-      // props.history.push('/index')
-      return
-    }
+    if (!window.location.search) return
+    setIsLoading(true)
+
     axios({
       method: 'get',
-      url: githubPath.githubInfo,
-      data: {},
-      withCredentials: true
+      url: githubPath.githubInfo + window.location.search,
+      data: {}
     })
       .then(res => {
         setIsLoading(false)
-        console.log('github')
-        console.log(res.data.message)
+        const { data } = res
+        console.log(data)
 
-        if (res.data.message) {
-          localStorage.setItem('openId', res.data.message)
-          props.history.push('/index')
+        if (data.id) {
+          localStorage.setItem('openId', data.updated_at)
+          // props.history.push('/index')
+          // history.push("/index");
         }
       })
       .catch(res => {
@@ -86,9 +87,13 @@ function Login(props) {
         // message.error(error);
       })
   }
-  githubInfo()
+
+  useEffect(() => {
+    console.log(888)
+    githubInfo()
+  })
   const openGit = () => {
-    window.open('http://127.0.0.1:7001/github')
+    window.open('http://127.0.0.1:7002/github', '_self')
   }
   return (
     <div className="login-div">

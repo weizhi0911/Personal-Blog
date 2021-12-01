@@ -13,3 +13,13 @@
   .site-layout .site-layout-background {
     background: #fff;
   }
+
+.header-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loginout{
+
+}
