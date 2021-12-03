@@ -9,7 +9,5 @@ module.exports = options => {
     } else {
       ctx.body = { data: '没有登录', code: 401 }
     }
-    console.log(ctx.session)
-    console.log(ctx.originalUrl)
   }
 }
