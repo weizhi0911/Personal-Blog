@@ -9,15 +9,16 @@ class GithubController extends Controller {
     // 发送get请求到https://github.com/login/oauth/authorize带上一些参数即可
     // client_id: Github可以根据这个client_id判断你有没有申请接入
     //            Github会根据这个client_id查询出对应的应用程序名称, 告诉用户正在给哪个程序授权
-    // scope    : 授权范围，一般'user'
+    // scope    : 授权范围
     const baseURL = 'https://github.com/login/oauth/authorize'
     const option = {
       client_id: '475d5903e217f53488cc',
-      // scope: '4153e1dc7537442cb3ea6e97429ce191f026d20c'
-      scope: 'user'
+      scope: '4153e1dc7537442cb3ea6e97429ce191f026d20c'
     }
     const url = baseURL + '?' + queryString.stringify(option)
     const { ctx } = this
+    console.log('oooloo')
+    console.log(ctx)
     //这个页面是用户进行授权的页面
     ctx.redirect(url)
   }
@@ -26,7 +27,6 @@ class GithubController extends Controller {
     const { ctx } = this
     // 1.拿到用户同意授权之后的code
     const { code } = ctx.query
-
     // 2.利用code换取令牌(access_token)
     // 发送POST请求到https://github.com/login/oauth/access_token带上必要的参数
     const baseURL = 'https://github.com/login/oauth/access_token'
@@ -55,10 +55,6 @@ class GithubController extends Controller {
     const { ctx } = this
     const baseURL = 'https://api.github.com/user'
     const url = `${baseURL}?access_token=${accessToken}`
-    // console.log('accessToken')
-    // console.log(accessToken)
-    // console.log('accessToken')
-
     const result = await ctx.curl(url, {
       method: 'GET',
       headers: {

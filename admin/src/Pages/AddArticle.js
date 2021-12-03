@@ -4,8 +4,6 @@ import '../static/css/AddArticle.css'
 import { Row, Col, Input, Select, Button, DatePicker, message } from 'antd'
 import axios from 'axios';
 import servicePath from '../config/apiUrl'
-import githubPath from '../config/githubUrl'
-
 import moment from 'moment';
 const { Option } = Select;
 const { TextArea } = Input
@@ -167,32 +165,7 @@ function AddArticle(props) {
             }, 3000);
             // setSelectType(articleInfo.typeName)
         })
-  }
-  
-  const githubInfo = () => {
-    axios({
-      method: 'get',
-      url: githubPath.githubInfo,
-      data: {},
-      withCredentials: true
-    })
-      .then(res => {
-        console.log('github')
-        console.log(res.data.message)
-
-        // if (res.data.message) {
-        //   localStorage.setItem('openId', res.data.message)
-        //   props.history.push('/index')
-        // }
-      })
-      .catch(res => {
-        // console.log(res.response)
-        // message.error(res.data.data)
-        // handle error
-        // message.error(error);
-      })
-  }
-  // githubInfo()
+    }
 
 
     return (

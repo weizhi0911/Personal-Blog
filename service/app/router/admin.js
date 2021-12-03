@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports = app => {
   const { router, controller } = app
   const adminauth = app.middleware.adminauth() // 路由守卫(中间件)需要登录才能请求接口
@@ -27,13 +25,11 @@ module.exports = app => {
     adminauth,
     controller.admin.main.getArticleById
   )
-  // 玩具的接口
-  router.post('/toys/upload', adminauth, controller.admin.toys.upload)
-
 
   // github登录接口
   router.get('/github', controller.github.loginView)
   router.get('/github/callback', controller.github.getAccessToken)
+  router.get('/github/info', controller.github.getGithubUserInfo)
 
   // 挂载鉴权路由
   // app.passport.mount('github')
