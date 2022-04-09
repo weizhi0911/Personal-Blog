@@ -9,7 +9,7 @@
     "antd": "^4.0.1",
     "axios": "^0.19.2",
     "marked": "^0.8.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "^16.13.0",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.0",
